@@ -21,28 +21,28 @@ function Bar(muscleGroup) {
 const App = () => {
   //defining the 4 bars, upperbody, lowerbody, cardio, total
   const upperBar = Bar(upper), lowerBar = Bar(lower), cardioBar = Bar(cardio), totalBar = Bar(total);
+  const xCoor = "100", yCoor = "80";
+
 
   //outputs this stuff to the website
   return (
     <div>
       
-      <h3 style={{color: 'green'}}>Progress</h3>
+      <h3 style={{color: 'green', marginLeft: '2%'}}>Progress</h3>
       
       <svg xmlns="http://www.w3.org/2000/svg">
-        <circle cx="150" cy="100" r="50" fill="green" style={{marginBottom: '1000px'}} />
+        <circle cx={xCoor} cy={yCoor} r="65" fill="green" style={{marginBottom: '1000px'}} />
+        <text textAnchor="middle" x={xCoor} y={yCoor} style = {{fontSize: '40px'}}>lvl {lvl}</text>
       </svg>
+    
 
-      <p style={{marginTop: '40px'}}>
-        Total XP
+      <p style={{marginLeft: '2%'}}>
         <br></br>
-        Lvl {lvl}
+        Total XP
         <div style={{width: '40%'}}>
           {totalBar}
         </div>
-      </p>
-    
 
-      <p style={{marginLeft: '10px'}}>
         Upper Body: 
         <div style={{width: '40%'}}>
           {upperBar}
