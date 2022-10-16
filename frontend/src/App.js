@@ -1,58 +1,98 @@
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+//issues/questions/discussion whatever:
+  //bar is not rendering anymore, it only displays as a percent??
+  //theres some white overlap in the website (demo what i mean)
+      //import a png image as a solution(?)
+  //the colour thing in style (in the App component) dOES NOT work >:(   (for the thing inside the <text></text> tag), it "changes" the colour (when you inspect the page) but still renders as black??
+  //how to change font family ??
 
 //array to store xp gains 💪💪
 const upper = [0, 5, 5, 5];
 const lower = [10, 10, 0, 0];
-const cardio = [5, 5, 0, 5, 1];
+const cardio = [5, 5, 0, 5, 353];
 var total = upper.concat(lower, cardio);
-var lvl = 1;
+//console.log(total)
+var lvl = 1, lvlXP = 100, streak = 2, upperLvl = 1, lowerLvl = 1, cardioLvl = 1;
 
-//function to draw bar on website
-function Bar(muscleGroup) {
-  const sum = muscleGroup.reduce((accumulator, value) => {
-    return accumulator + value;
-  }, 0);
+//brute force: calculate the sum of each list
+var totalSum = total.reduce((partialSum, a) => partialSum + a, 0);
+var upperSum = upper.reduce((partialSum, a) => partialSum + a, 0);
+var lowerSum = lower.reduce((partialSum, a) => partialSum + a, 0);
+var cardioSum = cardio.reduce((partialSum, a) => partialSum + a, 0);
 
+//brute force: total xp calculation
+if (totalSum > lvlXP){
+  //console.log('lvl'+ lvl);
+  lvl += Math.floor(totalSum/lvlXP);
+  //console.log('updated lvl:' + lvl);
+  //console.log('total sum before: ' + totalSum);
+  totalSum -= Math.floor(totalSum/lvlXP)*lvlXP;
+  //console.log('total sum updated: ' + totalSum);
+}
+
+//brute force: lvl calculation and remaining XP
+if (upperSum > lvlXP){
+  upperLvl += Math.floor(upperSum/lvlXP);
+  upperSum -= Math.floor(upperSum/lvlXP)*lvlXP;
+}
+
+if (lowerSum > lvlXP){
+  lowerLvl += Math.floor(lowerSum/lvlXP);
+  lowerSum -= Math.floor(lowerSum/lvlXP)*lvlXP;
+}
+
+if (cardioSum > lvlXP){
+  cardioLvl += Math.floor(cardioSum/lvlXP);
+  cardioSum -= Math.floor(cardioSum/lvlXP)*lvlXP;
+}
+
+//function to draw progress bars on the website
+
+function Bar(sum) {
   return <ProgressBar variant="success" animated now={sum} label={`${sum}%`} visuallyHidden />;
 }
 
-//"main" equivalent? 
+//"main" equivalent?
 const App = () => {
-  //defining the 4 bars, upperbody, lowerbody, cardio, total
-  const upperBar = Bar(upper), lowerBar = Bar(lower), cardioBar = Bar(cardio), totalBar = Bar(total);
-  const xCoor = "100", yCoor = "80";
-
-
-  //outputs this stuff to the website
+  //creating the 4 bars: upperbody, lowerbody, cardio, and total
+  //const upperBar = Bar(upperSum), lowerBar = Bar(lowerSum), cardioBar = Bar(cardioSum), totalBar = Bar(totalSum);
+  const upperBar = Bar(upperSum), lowerBar = Bar(lowerSum), cardioBar = Bar(cardioSum), totalBar = Bar(totalSum);
+  const xCoorXP = "100", yCoor = "80", xCoorS = "10";
+  
   return (
     <div>
-      
-      <h3 style={{color: 'green', marginLeft: '2%'}}>Progress</h3>
-      
-      <svg xmlns="http://www.w3.org/2000/svg">
-        <circle cx={xCoor} cy={yCoor} r="65" fill="green" style={{marginBottom: '1000px'}} />
-        <text textAnchor="middle" x={xCoor} y={yCoor} style = {{fontSize: '40px'}}>lvl {lvl}</text>
+      <svg>
+        <circle cx={xCoorXP} cy={yCoor} r="65" fill="green" />
+        <text textAnchor="middle" x={xCoorXP} y={yCoor} style = {{fontSize: '40px', color: 'white'}}>lvl {lvl}</text>
       </svg>
-    
+
+      <svg >
+        <circle cx={xCoorS} cy={yCoor} r="40" fill="green" />
+        <text textAnchor="middle" x={xCoorS} y={yCoor} style = {{fontSize: '35px', color: 'white'}}>{streak}</text>
+      </svg>
 
       <p style={{marginLeft: '2%'}}>
         <br></br>
-        Total XP
-        <div style={{width: '40%'}}>
+        <div style={{width: '20%', marginLeft: '8%'}}>
+          Total XP
           {totalBar}
         </div>
 
-        Upper Body: 
-        <div style={{width: '40%'}}>
+        <div style={{width: '40%', marginTop: '5%'}}>
+          
+          Upper Body: Lvl {upperLvl}
           {upperBar}
         </div>
-        Lower Body: 
+        
         <div style={{width: '40%'}}>
+          Lower Body: Lvl {lowerLvl}
           {lowerBar}
         </div>
-        Cardio: 
+        
         <div style={{width: '40%'}}>
+          Cardio: Lvl {cardioLvl}
           {cardioBar}
         </div>
 
