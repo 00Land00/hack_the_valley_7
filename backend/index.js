@@ -19,7 +19,7 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/exercises/:dayOfWeek', (request, response) => {
-  Exercise.find({dayOfWeek: request.params.id}).then(exercise => {
+  Exercise.find({dayOfWeek: request.params.dayOfWeek}).then(exercise => {
     response.json(exercise)
   }).catch(error => next(error))
 })
