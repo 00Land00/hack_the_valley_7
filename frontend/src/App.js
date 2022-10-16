@@ -11,10 +11,6 @@ import Stack from 'react-bootstrap/Stack'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => {
-  const [isSelect, setIsSelect] = useState(false)
-  const handleSelectChange = (event) => setIsSelect(!isSelect)
-  const [exercises, setExercises] = useState([])
-  
   return (
     <Container fluid>
       <Row>
@@ -57,33 +53,5 @@ const MockExerciseInfo = () => {
     </Card>
   )
 }
-
-const ExerciseInfo = ({exercises, setExercises, isSelectEH}) => {
-  
-  //exerciseEndpoint.getExercisesOfTheDay(todayStr)
-                  //.then(response => setExercises(response))
-  
-  
-
-  return (
-    <>
-      <div className='exercise_item'>
-        {exercises ? exercises.map(exercise => (
-          <div key={exercise.name}>
-            <ExerciseButton exerciseName={exercise.name} exerciseClickHandler={isSelectEH} />
-          </div>
-        )) : ""}
-      </div>
-    </>
-  )
-}
-
-// style (hardcoded)
-// text, onHandleClick handler, prop arg
-const ExerciseButton = ({exerciseName, exerciseClickHandler}) => (
-  <button onClick={exerciseClickHandler}>
-    {exerciseName}
-  </button>
-)
 
 export default App
