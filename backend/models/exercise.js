@@ -7,11 +7,4 @@ const exerciseSchema = new mongoose.Schema({
   isCompleted: Boolean
 })
 
-exerciseSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    delete returnedObject._id
-    delete returnedObject.__v
-  }
-})
-
 module.exports = mongoose.model('Exercise', exerciseSchema)

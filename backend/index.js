@@ -10,9 +10,6 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static('build'))
 
-// create a temporary api to upload the sample exercises
-// create an axios library in the frontend
-
 mongoose.connect(process.env.MONGODB_URI).then(() => {
   console.log('connected to MongoDB')
 }).catch((err) => console.log(err))
