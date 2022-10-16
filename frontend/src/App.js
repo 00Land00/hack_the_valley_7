@@ -29,10 +29,10 @@ const App = () => {
       <h3 style={{color: 'green'}}>Progress</h3>
       
       <svg xmlns="http://www.w3.org/2000/svg">
-        <circle cx="150" cy="100" r="100" fill="green" />
+        <circle cx="150" cy="100" r="50" fill="green" style={{marginBottom: '1000px'}} />
       </svg>
 
-      <p>
+      <p style={{marginTop: '40px'}}>
         Total XP
         <br></br>
         Lvl {lvl}
@@ -40,8 +40,9 @@ const App = () => {
           {totalBar}
         </div>
       </p>
-      
-      <p>
+    
+
+      <p style={{marginLeft: '10px'}}>
         Upper Body: 
         <div style={{width: '40%'}}>
           {upperBar}
@@ -54,7 +55,9 @@ const App = () => {
         <div style={{width: '40%'}}>
           {cardioBar}
         </div>
+
       </p>
+
     </div>
   )
 }
